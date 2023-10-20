@@ -9,7 +9,10 @@
         *ngFor="let actionType of actions; let i = index"
         [ngSwitch]="actionType"
     >
-        <div class="item-container">
+        <div
+            [@removing]="states[i]"
+            class="item-container"
+        >
             <app-combination-action *ngSwitchCase="'Combination'"/>
             <app-modulation-action *ngSwitchCase="'Modulation'"/>
             <button
