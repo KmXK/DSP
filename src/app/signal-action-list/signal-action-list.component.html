@@ -6,13 +6,14 @@
 
 <div class="actions-container">
     <ng-container
-        *ngFor="let actionType of actions"
+        *ngFor="let actionType of actions; let i = index"
         [ngSwitch]="actionType"
     >
         <div class="item-container">
             <app-combination-action *ngSwitchCase="'Combination'"/>
             <app-modulation-action *ngSwitchCase="'Modulation'"/>
             <button
+                (click)="removeItem(i)"
                 color="warn"
                 mat-raised-button
             >

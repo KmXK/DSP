@@ -13,4 +13,8 @@ export class SignalActionListComponent {
     addAction(type: string) {
         this.actions = [type, ...this.actions];
     }
+
+    removeItem(index: number) {
+        this.actions.splice(index, 1);
+    }
 }
