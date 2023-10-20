@@ -1,0 +1,38 @@
+<div class="container">
+    <div style="text-align: center">
+        <h4>Моделирующий сигнал</h4>
+        <app-signal-drop
+            (signalChanged)="signalChanged($event, 0)"
+        />
+    </div>
+
+    <div style="text-align: center">
+        <h4>Несущий сигнал</h4>
+        <app-signal-drop
+            (parameterChoose)="parameterChoose($event)"
+            (signalChanged)="signalChanged($event, 1)"
+            [canChooseParameters]="true"
+        />
+    </div>
+
+    <div
+        *ngIf="signal"
+        style="text-align: center"
+    >
+        <h4>Итоговый сигнал</h4>
+        <div
+            cdkDropList
+            class="signal-container"
+        >
+            <app-signal
+                *ngIf="signal"
+                [dragable]="true"
+                [fullscreen]="true"
+                [height]="280"
+                [signal]="signal"
+                [width]="360"
+            />
+        </div>
+    </div>
+
+</div>

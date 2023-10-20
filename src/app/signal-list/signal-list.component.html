@@ -1,0 +1,12 @@
+<div
+    cdkDropList
+    cdkDropListSortingDisabled
+    class="list"
+>
+    <app-signal
+        *ngFor="let signal of signals"
+        [height]="280"
+        [signal]="signal"
+        [width]="300"
+    />
+</div>

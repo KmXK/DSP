@@ -1,0 +1,25 @@
+.list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 30px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding: 10px 10px 20px 10px;
+}
+
+:host {
+    ::-webkit-scrollbar {
+        height: 10px;
+        overflow-y: scroll;
+        background: transparent;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        height: 4px;
+        background: #e1e1e1;
+        border-radius: 10px;
+        overflow-y: visible;
+    }
+}

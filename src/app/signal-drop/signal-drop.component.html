@@ -1,0 +1,18 @@
+<div
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListDisabled]="!!signal"
+    cdkDropList
+    class="container"
+>
+    <app-signal
+        (changed)="signalChanged.emit($event)"
+        (parameterChoose)="parameterChoose.emit($event)"
+        *ngIf="signal"
+        [canChooseParameter]="canChooseParameters"
+        [dragable]="false"
+        [fullscreen]="true"
+        [height]="280"
+        [signal]="signal"
+        [width]="300"
+    />
+</div>

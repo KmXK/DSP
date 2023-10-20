@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="sum-container">
+        <div style="text-align: center">
+            <h4>Первый сигнал</h4>
+            <app-signal-drop
+                (signalChanged)="signalChanged($event, 0)"
+            />
+        </div>
+
+        <div style="text-align: center">
+            <h4>Второй сигнал</h4>
+            <app-signal-drop
+                (signalChanged)="signalChanged($event, 1)"
+            />
+        </div>
+    </div>
+
+    <div
+        *ngIf="signal"
+        style="text-align: center"
+    >
+        <h4>Итоговый сигнал</h4>
+        <div
+            cdkDropList
+            class="signal-container"
+        >
+            <app-signal
+                *ngIf="signal"
+                [dragable]="true"
+                [fullscreen]="true"
+                [height]="280"
+                [signal]="signal"
+                [width]="300"
+            />
+        </div>
+    </div>
+</div>

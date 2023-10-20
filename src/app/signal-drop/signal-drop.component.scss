@@ -1,0 +1,15 @@
+.container {
+    min-width: 552px;
+    min-height: 360px;
+    width: auto;
+    height: auto;
+    background: #f5f5f5;
+    border-radius: 20px;
+    border: #7d7d7d solid 2px;
+
+    box-shadow: 0 0 20px 1px #ababab inset;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}

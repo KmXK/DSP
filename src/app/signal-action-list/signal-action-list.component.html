@@ -1,0 +1,33 @@
+<button
+    [matMenuTriggerFor]="menu"
+    mat-raised-button
+>Add
+</button>
+
+<div class="actions-container">
+    <ng-container
+        *ngFor="let actionType of actions"
+        [ngSwitch]="actionType"
+    >
+        <div class="item-container">
+            <app-combination-action *ngSwitchCase="'Combination'"/>
+            <app-modulation-action *ngSwitchCase="'Modulation'"/>
+            <button
+                color="warn"
+                mat-raised-button
+            >
+                <span>X</span>
+            </button>
+        </div>
+    </ng-container>
+</div>
+
+<mat-menu #menu="matMenu">
+    <button
+        (click)="addAction(actionType)"
+        *ngFor="let actionType of actionTypes"
+        mat-menu-item
+    >
+        {{ actionType }}
+    </button>
+</mat-menu>

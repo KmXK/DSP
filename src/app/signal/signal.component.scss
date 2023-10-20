@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    background: white;
+    padding: 10px 20px 20px 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgb(170, 170, 170);
+
+    transition: box-shadow .3s;
+    
+    &:hover {
+        box-shadow: 0 0 20px rgb(170, 170, 170);
+
+        transition: box-shadow .3s;
+    }
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.parameters-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.fullscreen-handle {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.drag-handle {
+    color: #b4b4b4;
+    height: 24px;
+
+    &:hover {
+        cursor: move;
+    }
+}
