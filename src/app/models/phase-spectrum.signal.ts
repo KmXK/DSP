@@ -5,13 +5,18 @@ export class PhaseSpectrumSignal extends Signal {
         super();
     }
 
-    override readonly parameters: SignalParameters = {};
+    override readonly _parameters: SignalParameters = {};
 
     formula(n: number, N: number): number {
-        const indices = Array.from(Array(N).keys());
+        let cosSum = 0, sinSum = 0;
 
-        const cosSum = indices.reduce((x, i) => x + this.signal.formula(i, N) * Math.cos(2 * Math.PI * i * n / N), 0);
-        const sinSum = indices.reduce((x, i) => x + this.signal.formula(i, N) * Math.sin(2 * Math.PI * i * n / N), 0);
+        for (let i = 0; i < N; i++) {
+            const value = this.signal.cachedFormula(i, N);
+            const tv = 2 * Math.PI * i * n / N;
+
+            cosSum += value * Math.cos(tv);
+            sinSum += value * Math.sin(tv);
+        }
 
         const cos = 2 / N * cosSum;
         const sin = 2 / N * sinSum;

@@ -50,7 +50,6 @@ export class SignalComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-        console.log(Object.getOwnPropertyNames(this.signal.parameters));
         if (Object.getOwnPropertyNames(this.signal.parameters).length) {
             this.histogramOptions.layout.width = this.width;
             this.histogramOptions.layout.height = this.height;
@@ -63,18 +62,20 @@ export class SignalComponent implements OnInit, OnChanges {
     }
 
     calculatePoints(): void {
-        Object.entries(this.formGroup.controls).forEach(([key, control]) => {
-            if (this.signal.parameters[key]) {
-                this.signal.parameters[key].value = control.value;
-            }
-        })
+        new Promise<{ x: number, y: number }[]>(resolve => {
+            Object.entries(this.formGroup.controls).forEach(([key, control]) => {
+                if (this.signal.parameters[key]) {
+                    this.signal.setParameter(key, control.value);
+                }
+            })
 
-        const points = this.signal.getValues(this.range || { from: 0, to: this.N * 3 }, this.N);
+            resolve(this.signal.getValues(this.range || { from: 0, to: this.N * 3 }, this.N));
+        }).then(points => {
+            this.histogramOptions.data[0].x = points.map(x => x.x);
+            this.histogramOptions.data[0].y = points.map(x => x.y);
 
-        this.histogramOptions.data[0].x = points.map(x => x.x);
-        this.histogramOptions.data[0].y = points.map(x => x.y);
-
-        this.changed.emit(this.signal);
+            this.changed.emit(this.signal);
+        });
     }
 
     getErrorMessage(controlKey: string): string | null {
@@ -127,6 +128,4 @@ export class SignalComponent implements OnInit, OnChanges {
         this.calculatePoints();
         this.nChanged.emit(this.N);
     }
-
-    protected readonly undefined = undefined;
 }

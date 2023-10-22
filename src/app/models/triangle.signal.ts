@@ -1,7 +1,7 @@
 import { Signal, SignalParameters } from '@app/models/signal';
 
 export class TriangleSignal extends Signal {
-    override readonly parameters: SignalParameters = {
+    override readonly _parameters: SignalParameters = {
         A: {
             name: 'A',
             value: 1

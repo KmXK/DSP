@@ -9,9 +9,11 @@ export interface SignalParameter {
 export type SignalParameters = { [propertyName: string]: SignalParameter };
 
 export abstract class Signal {
-    abstract readonly parameters: SignalParameters;
+    protected abstract readonly _parameters: SignalParameters;
 
     normalized = false;
+
+    private cache: Record<number, Record<number, number>> = {};
 
     getValues(range: { from: number, to: number }, samplingFrequency: number): { x: number, y: number }[] {
         const result: { x: number, y: number }[] = [];
@@ -19,7 +21,7 @@ export abstract class Signal {
         for (let x = range.from; x <= range.to; x++) {
             result.push({
                 x: x,
-                y: this.formula(x, samplingFrequency)
+                y: this.cachedFormula(x, samplingFrequency)
             });
         }
 
@@ -31,15 +33,44 @@ export abstract class Signal {
         return result;
     }
 
+    cachedFormula(n: number, N: number): number {
+        if (this.cache[N]) {
+            if (this.cache[N][n]) {
+                return this.cache[N][n];
+            }
+        } else {
+            this.cache[N] = {};
+        }
+
+        return this.cache[N][n] = this.formula(n, N);
+    }
+
+    public get parameters(): SignalParameters {
+        return this._parameters;
+    }
+
+    public setParameter(name: string, value: any): void {
+        if (!this._parameters.hasOwnProperty(name)) {
+            throw new Error(`Unknown parameter: ${name}`);
+        }
+
+        this._parameters[name].value = value;
+        this.clearCache();
+    }
+
+    protected clearCache(): void {
+        this.cache = {};
+    }
+
     abstract formula(n: number, N: number): number;
 
     protected getParameterValue(name: string, n: number, N: number): number {
-        return this.parameters[name].value;
+        return this._parameters[name].value;
     }
 
     abstract clone(): Signal;
 
     protected copyParameters(signal: Signal): void {
-        Object.entries(signal.parameters).forEach(([name, p]) => this.parameters[name].value = p.value);
+        Object.entries(signal._parameters).forEach(([name, p]) => this._parameters[name].value = p.value);
     }
 }

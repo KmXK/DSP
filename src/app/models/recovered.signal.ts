@@ -3,7 +3,7 @@ import { AmplitudeSpectrumSignal } from '@app/models/amplitude-spectrum.signal';
 import { PhaseSpectrumSignal } from '@app/models/phase-spectrum.signal';
 
 export class RecoveredSignal extends Signal {
-    override readonly parameters: SignalParameters = {
+    override readonly _parameters: SignalParameters = {
     };
 
     constructor(private readonly amplitudeSpectrumSignal: AmplitudeSpectrumSignal,
@@ -13,11 +13,20 @@ export class RecoveredSignal extends Signal {
     }
 
     formula(n: number, N: number): number {
-        const indices = Array.from(Array(this.initialN / 2).keys());
+        let sum = 0;
 
-        return indices.reduce((x, i) => x +
-            this.amplitudeSpectrumSignal.formula(i, this.initialN) *
-            Math.cos(2 * Math.PI * i * n / N - this.phaseSpectrumSignal.formula(i, this.initialN)), 0);
+        for (let i = 0; i < this.initialN / 2; i++) {
+            sum += this.amplitudeSpectrumSignal.cachedFormula(i, this.initialN) *
+                Math.cos(2 * Math.PI * i * n / N - this.phaseSpectrumSignal.cachedFormula(i, this.initialN));
+        }
+
+        return sum;
+
+        // const indices = Array.from(Array(this.initialN / 2).keys());
+        //
+        // return indices.reduce((x, i) => x +
+        //     this.amplitudeSpectrumSignal.formula(i, this.initialN) *
+        //     Math.cos(2 * Math.PI * i * n / N - this.phaseSpectrumSignal.formula(i, this.initialN)), 0);
     }
 
     override clone(): Signal {

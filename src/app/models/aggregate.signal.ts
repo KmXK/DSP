@@ -1,7 +1,7 @@
 import { Signal, SignalParameters } from '@app/models/signal';
 
 export class AggregateSignal extends Signal {
-    override readonly parameters: SignalParameters = {
+    override readonly _parameters: SignalParameters = {
     };
 
     signal1: Signal;
@@ -14,7 +14,7 @@ export class AggregateSignal extends Signal {
     }
 
     formula(n: number, N: number): number {
-        return this.signal1.formula(n, N) + this.signal2.formula(n, N);
+        return this.signal1.cachedFormula(n, N) + this.signal2.cachedFormula(n, N);
     }
 
     override clone(): Signal {
