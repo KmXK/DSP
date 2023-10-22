@@ -16,10 +16,10 @@ export abstract class Signal {
     getValues(range: { from: number, to: number }, samplingFrequency: number): { x: number, y: number }[] {
         const result: { x: number, y: number }[] = [];
 
-        while (result.length / samplingFrequency < 10) {
+        for (let x = range.from; x <= range.to; x++) {
             result.push({
-                x: result.length / samplingFrequency,
-                y: this.formula(result.length, samplingFrequency)
+                x: x,
+                y: this.formula(x, samplingFrequency)
             });
         }
 

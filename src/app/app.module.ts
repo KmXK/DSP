@@ -30,6 +30,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
+import {
+    FourierTransformActionComponent
+} from '@app/signal-actions/fourier-transform-action/fourier-transform-action.component';
 
 PlotlyModule.plotlyjs = Protly;
 
@@ -42,6 +45,7 @@ PlotlyModule.plotlyjs = Protly;
         SignalActionListComponent,
         CombinationActionComponent,
         ModulationActionComponent,
+        FourierTransformActionComponent,
         SignalDropComponent
     ],
     imports: [

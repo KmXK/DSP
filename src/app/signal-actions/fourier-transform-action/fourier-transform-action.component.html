@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="sum-container">
+        <div style="text-align: center">
+            <h4>Сигнал</h4>
+            <app-signal-drop
+                (signalChanged)="signalChanged($event)"
+                (nChanged)="onNChanged($event)"
+            />
+        </div>
+    </div>
+
+    <div
+        *ngIf="signal"
+        style="text-align: center"
+    >
+        <h4>Амплитудный спектр</h4>
+        <div
+            cdkDropList
+            class="signal-container"
+        >
+            <app-signal
+                *ngIf="amplitudeSpectrumSignal"
+                [dragable]="false"
+                [fullscreen]="true"
+                [height]="280"
+                [signal]="amplitudeSpectrumSignal"
+                [width]="300"
+                [initN]="N / 2"
+                [range]="{from: 0, to: N / 2}"
+            />
+        </div>
+    </div>
+
+    <div
+        *ngIf="signal"
+        style="text-align: center"
+    >
+        <h4>Фазовый спектр</h4>
+        <div
+            cdkDropList
+            class="signal-container"
+        >
+            <app-signal
+                *ngIf="phaseSpectrumSignal"
+                [dragable]="false"
+                [fullscreen]="true"
+                [height]="280"
+                [signal]="phaseSpectrumSignal"
+                [width]="300"
+                [initN]="N / 2"
+                [range]="{from: 0, to: N / 2}"
+            />
+        </div>
+    </div>
+
+    <div
+        *ngIf="signal"
+        style="text-align: center"
+    >
+        <h4>Восстановленный сигнал</h4>
+        <div
+            cdkDropList
+            class="signal-container"
+        >
+            <app-signal
+                *ngIf="recoveredSignal"
+                [dragable]="true"
+                [fullscreen]="true"
+                [height]="280"
+                [signal]="recoveredSignal"
+                [width]="300"
+            />
+        </div>
+    </div>
+</div>

@@ -12,14 +12,14 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
                 color: 'red'
             })),
             transition('* => removed', [
-                animate(500)
+                animate(300)
             ])
         ])
     ]
 })
 export class SignalActionListComponent {
-    actionTypes = ['Combination', 'Modulation'];
-    actions: string[] = ['Combination', 'Modulation'];
+    actionTypes = ['Combination', 'Modulation', 'Fourier'];
+    actions: string[] = ['Fourier'];
     states: string[] = [];
 
     addAction(type: string) {

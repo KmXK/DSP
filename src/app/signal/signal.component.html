@@ -23,8 +23,9 @@
         >
             <input
                 #slider
-                (valueChange)="nChanged()"
-                [(ngModel)]="N"
+                (valueChange)="onNChanged()"
+                [(ngModel)]="initN || N"
+                [disabled]="!!initN"
                 matSliderThumb
             >
         </mat-slider>

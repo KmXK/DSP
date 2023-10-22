@@ -18,8 +18,11 @@ export class SignalComponent implements OnInit, OnChanges {
     @Input() fullscreen = true;
     @Input() width = 0;
     @Input() height = 0;
+    @Input() initN: number | undefined = undefined;
+    @Input() range?: { from: number, to: number } = undefined;
     @Output() changed = new EventEmitter<Signal>();
     @Output() parameterChoose = new EventEmitter<string>();
+    @Output() nChanged = new EventEmitter<number>();
     N: number = 128;
     histogramOptions: any = {
         data: [
@@ -28,9 +31,7 @@ export class SignalComponent implements OnInit, OnChanges {
             }
         ],
         layout: {
-            bargap: 0.05,
             xaxis: {
-                autotick: false,
                 tickcolor: '#000'
             },
             autosize: true,
@@ -57,6 +58,8 @@ export class SignalComponent implements OnInit, OnChanges {
             this.histogramOptions.layout.width = this.width + 170;
             this.histogramOptions.layout.height = this.height;
         }
+
+        this.nChanged.emit(this.N);
     }
 
     calculatePoints(): void {
@@ -66,7 +69,7 @@ export class SignalComponent implements OnInit, OnChanges {
             }
         })
 
-        const points = this.signal.getValues({ from: 0, to: 1 }, this.N);
+        const points = this.signal.getValues(this.range || { from: 0, to: this.N * 3 }, this.N);
 
         this.histogramOptions.data[0].x = points.map(x => x.x);
         this.histogramOptions.data[0].y = points.map(x => x.y);
@@ -120,7 +123,10 @@ export class SignalComponent implements OnInit, OnChanges {
         }
     }
 
-    nChanged() {
+    onNChanged() {
         this.calculatePoints();
+        this.nChanged.emit(this.N);
     }
+
+    protected readonly undefined = undefined;
 }

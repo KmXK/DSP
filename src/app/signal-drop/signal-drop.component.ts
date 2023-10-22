@@ -12,6 +12,7 @@ export class SignalDropComponent {
 
     @Output() parameterChoose = new EventEmitter<string>();
     @Output() signalChanged = new EventEmitter<Signal>();
+    @Output() nChanged = new EventEmitter<number>();
 
     signal: Signal | undefined = undefined;
 
