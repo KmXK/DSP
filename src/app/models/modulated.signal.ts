@@ -19,7 +19,7 @@ export class ModulatedSignal extends Signal {
         this.modulationSignal = modulationSignal.clone();
         this.modulationParameter = modulationParameter;
 
-        this.modulationSignal.normalized = true;
+        // this.modulationSignal.normalized = true;
 
         // @ts-ignore
         this.nativeSignal.getParameterValue = function(name, n, N): number {
