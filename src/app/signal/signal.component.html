@@ -15,25 +15,35 @@
             [layout]="histogramOptions.layout"
         ></plotly-plot>
 
-        <mat-slider
-            discrete
-            max="2048"
-            min="2"
-            step="2"
-        >
-            <input
-                #slider
-                (valueChange)="onNChanged()"
-                [(ngModel)]="initN || N"
-                [disabled]="!!initN"
-                matSliderThumb
+        <div class="n-input-container">
+            <mat-form-field>
+                <mat-label>N</mat-label>
+                <input
+                    matInput
+                    (change)="onNChanged()"
+                    [(ngModel)]="initN || N"
+                    [disabled]="!!initN"
+                />
+            </mat-form-field>
+            <mat-slider
+                discrete
+                max="2048"
+                min="2"
+                step="2"
             >
-        </mat-slider>
+                <input
+                    (valueChange)="onNChanged()"
+                    [(ngModel)]="initN || N"
+                    [disabled]="!!initN"
+                    matSliderThumb
+                >
+            </mat-slider>
+        </div>
     </div>
 
     <div>
         <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-            <h3 *ngIf="Object.getOwnPropertyNames(signal.parameters).length">Параметры:</h3>
+            <h3 *ngIf="hasParameters">Параметры:</h3>
 
             <div class="actions">
                 <div
@@ -77,7 +87,7 @@
         </div>
 
         <form
-            *ngIf="Object.getOwnPropertyNames(signal.parameters).length"
+            *ngIf="hasParameters"
             [formGroup]="formGroup"
             class="form parameters-container"
         >

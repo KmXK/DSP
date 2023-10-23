@@ -31,8 +31,8 @@ export class SignalActionListComponent {
         this.states[index] = 'removed';
 
         setTimeout(() => {
-            this.actions = [...this.actions.splice(index, 1)];
-            this.states = [...this.states.splice(index, 1)];
+            this.actions = this.actions.filter((_, i) => i !== index);
+            this.states = this.states.filter((_, i) => i !== index);
         }, 500);
     }
 }

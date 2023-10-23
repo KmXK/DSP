@@ -24,6 +24,7 @@ export class SignalComponent implements OnInit, OnChanges {
     @Output() parameterChoose = new EventEmitter<string>();
     @Output() nChanged = new EventEmitter<number>();
     N: number = 128;
+    hasParameters = false;
     histogramOptions: any = {
         data: [
             {
@@ -44,20 +45,11 @@ export class SignalComponent implements OnInit, OnChanges {
         }
     };
     formGroup!: FormGroup;
-    protected readonly Object = Object;
 
     constructor(public dialog: MatDialog) {
     }
 
     ngOnInit(): void {
-        if (Object.getOwnPropertyNames(this.signal.parameters).length) {
-            this.histogramOptions.layout.width = this.width;
-            this.histogramOptions.layout.height = this.height;
-        } else {
-            this.histogramOptions.layout.width = this.width + 170;
-            this.histogramOptions.layout.height = this.height;
-        }
-
         this.nChanged.emit(this.N);
     }
 
@@ -110,6 +102,14 @@ export class SignalComponent implements OnInit, OnChanges {
         if (changes['signal'] && changes['signal']) {
             const controls: Record<string, FormControl> = {};
 
+            if (Object.entries(this.signal.parameters).length) {
+                this.histogramOptions.layout.width = this.width;
+                this.histogramOptions.layout.height = this.height;
+            } else {
+                this.histogramOptions.layout.width = this.width + 170;
+                this.histogramOptions.layout.height = this.height;
+            }
+
             Object.entries(this.signal.parameters)
                 .forEach(([name, p]) => controls[name] = new FormControl(
                     p.value,
@@ -119,6 +119,7 @@ export class SignalComponent implements OnInit, OnChanges {
                     ]));
 
             this.formGroup = new FormGroup(controls);
+            this.hasParameters = Object.entries(this.signal.parameters).length > 0;
 
             this.calculatePoints();
         }

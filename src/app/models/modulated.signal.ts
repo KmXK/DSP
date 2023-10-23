@@ -15,16 +15,18 @@ export class ModulatedSignal extends Signal {
     ) {
         super();
 
-        this.nativeSignal = nativeSignal.clone();
-        this.modulationSignal = modulationSignal.clone();
-        this.modulationParameter = modulationParameter;
+        const native = nativeSignal.clone();
+        const mod = modulationSignal.clone();
+        mod.normalized = true;
 
-        // this.modulationSignal.normalized = true;
+        this.nativeSignal = native;
+        this.modulationSignal = mod;
+        this.modulationParameter = modulationParameter;
 
         // @ts-ignore
         this.nativeSignal.getParameterValue = function(name, n, N): number {
             if (name === modulationParameter) {
-                return (modulationSignal.cachedFormula(n, N) + 1) * this.parameters[name].value;
+                return (mod.cachedFormula(n, N) + 1) * this.parameters[name].value;
             }
 
             return this.parameters[name].value;

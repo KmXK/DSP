@@ -5,6 +5,8 @@
 </button>
 
 <div class="actions-container">
+
+
     <ng-container
         *ngFor="let actionType of actions; let i = index"
         [ngSwitch]="actionType"
@@ -13,9 +15,15 @@
             [@removing]="states[i]"
             class="item-container"
         >
-            <app-combination-action *ngSwitchCase="'Combination'"/>
-            <app-modulation-action *ngSwitchCase="'Modulation'"/>
-            <app-fourier-transform-action *ngSwitchCase="'Fourier'"/>
+            <ng-template ngSwitchCase="Combination">
+                <app-combination-action/>
+            </ng-template>
+            <ng-template ngSwitchCase="Modulation">
+                <app-modulation-action/>
+            </ng-template>
+            <ng-template ngSwitchCase="Fourier">
+                <app-fourier-transform-action/>
+            </ng-template>
             <button
                 (click)="removeItem(i)"
                 color="warn"
