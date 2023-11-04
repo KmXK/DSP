@@ -18,8 +18,9 @@ export class SignalComponent implements OnInit, OnChanges {
     @Input() fullscreen = true;
     @Input() width = 0;
     @Input() height = 0;
-    @Input() initN: number | undefined = undefined;
+    @Input() fixedN: number | undefined = undefined;
     @Input() range?: { from: number, to: number } = undefined;
+    @Input() visibleRange?: { from: number, to: number } = undefined;
     @Output() changed = new EventEmitter<Signal>();
     @Output() parameterChoose = new EventEmitter<string>();
     @Output() nChanged = new EventEmitter<number>();
@@ -32,10 +33,11 @@ export class SignalComponent implements OnInit, OnChanges {
             }
         ],
         layout: {
+            autosize: false,
             xaxis: {
-                tickcolor: '#000'
+                autorange: false,
+                range: [-5, 10]
             },
-            autosize: true,
             margin: {
                 l: 30,
                 r: 30,
@@ -51,6 +53,10 @@ export class SignalComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.nChanged.emit(this.N);
+
+        this.histogramOptions.layout.xaxis.range = [
+            this.visibleRange?.from ?? this.range?.from ?? 0,
+            this.visibleRange?.to ?? this.range?.to ?? 3 * this.N];
     }
 
     calculatePoints(): void {
