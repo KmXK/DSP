@@ -16,6 +16,8 @@ export class FourierTransformActionComponent {
     phaseSpectrumSignal: PhaseSpectrumSignal | undefined = undefined;
     recoveredSignal: RecoveredSignal | undefined = undefined;
 
+    filterRange: {from: number, to: number} = undefined!;
+
     N: number = 128;
 
     signalChanged(signal: Signal) {
@@ -23,7 +25,13 @@ export class FourierTransformActionComponent {
         this.amplitudeSpectrumSignal = new AmplitudeSpectrumSignal(signal);
         this.phaseSpectrumSignal = new PhaseSpectrumSignal(signal);
 
-        this.recoveredSignal = new RecoveredSignal(this.amplitudeSpectrumSignal, this.phaseSpectrumSignal, this.N);
+        this.recoveredSignal = new RecoveredSignal(
+            this.amplitudeSpectrumSignal,
+            this.phaseSpectrumSignal,
+            this.N,
+            this.filterRange);
+
+        this.filterRange = { from: 0, to: this.N / 2 - 1 };
     }
 
     onNChanged(n: number) {

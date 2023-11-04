@@ -21,9 +21,12 @@ export class SignalComponent implements OnInit, OnChanges {
     @Input() fixedN: number | undefined = undefined;
     @Input() range?: { from: number, to: number } = undefined;
     @Input() visibleRange?: { from: number, to: number } = undefined;
+    @Input() editRangeBounds?: { from: number, to: number } = undefined;
+    @Input() editRange?: { from: number, to: number } = undefined;
     @Output() changed = new EventEmitter<Signal>();
     @Output() parameterChoose = new EventEmitter<string>();
     @Output() nChanged = new EventEmitter<number>();
+    @Output() editRangeChange = new EventEmitter<{from: number, to: number}>();
     N: number = 128;
     hasParameters = false;
     histogramOptions: any = {
@@ -37,6 +40,9 @@ export class SignalComponent implements OnInit, OnChanges {
             xaxis: {
                 autorange: false,
                 range: [-5, 10]
+            },
+            yaxis: {
+                autorange: true
             },
             margin: {
                 l: 30,
@@ -134,5 +140,19 @@ export class SignalComponent implements OnInit, OnChanges {
     onNChanged() {
         this.calculatePoints();
         this.nChanged.emit(this.N);
+
+        this.histogramOptions.layout.xaxis.range = [
+            this.visibleRange?.from ?? this.range?.from ?? 0,
+            this.visibleRange?.to ?? this.range?.to ?? 3 * this.N];
+    }
+
+    setEditedRange(range: { from?: number, to?: number }) {
+        if (range.from !== undefined) {
+            this.editRange = { ...this.editRange!, from: range.from };
+        } else if (range.to !== undefined) {
+            this.editRange = { ...this.editRange!, to: range.to };
+        }
+
+        this.editRangeChange.emit(this.editRange);
     }
 }

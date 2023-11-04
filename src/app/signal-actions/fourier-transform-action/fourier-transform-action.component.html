@@ -22,11 +22,14 @@
                 *ngIf="amplitudeSpectrumSignal"
                 [dragable]="false"
                 [fullscreen]="true"
-                [height]="280"
+                [height]="232"
                 [signal]="amplitudeSpectrumSignal"
                 [width]="300"
                 [fixedN]="N / 2"
                 [range]="{from: 0, to: N / 2}"
+                [editRangeBounds]="{from: 0, to: N / 2 - 1}"
+                [editRange]="filterRange"
+                (editRangeChange)="filterRange = $event; signalChanged(signal)"
             />
         </div>
     </div>
@@ -44,11 +47,14 @@
                 *ngIf="phaseSpectrumSignal"
                 [dragable]="false"
                 [fullscreen]="true"
-                [height]="280"
+                [height]="232"
                 [signal]="phaseSpectrumSignal"
                 [width]="300"
                 [fixedN]="N / 2"
                 [range]="{from: 0, to: N / 2}"
+                [editRangeBounds]="{from: 0, to: N / 2 - 1}"
+                [editRange]="filterRange"
+                (editRangeChange)="filterRange = $event; signalChanged(signal)"
             />
         </div>
     </div>

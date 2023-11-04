@@ -8,14 +8,15 @@ export class RecoveredSignal extends Signal {
 
     constructor(private readonly amplitudeSpectrumSignal: AmplitudeSpectrumSignal,
                 private readonly phaseSpectrumSignal: PhaseSpectrumSignal,
-                private readonly initialN: number) {
+                private readonly initialN: number,
+                private readonly filterRange: { from: number, to: number }) {
         super();
     }
 
     formula(n: number, N: number): number {
         let sum = 0;
 
-        for (let i = 0; i < this.initialN / 2; i++) {
+        for (let i = this.filterRange.from; i <= this.filterRange.to; i++) {
             sum += this.amplitudeSpectrumSignal.cachedFormula(i, this.initialN) *
                 Math.cos(2 * Math.PI * i * n / N - this.phaseSpectrumSignal.cachedFormula(i, this.initialN));
         }
@@ -33,6 +34,7 @@ export class RecoveredSignal extends Signal {
         return new RecoveredSignal(
             <AmplitudeSpectrumSignal>this.amplitudeSpectrumSignal.clone(),
             <PhaseSpectrumSignal>this.phaseSpectrumSignal.clone(),
-            this.initialN);
+            this.initialN,
+            { ...this.filterRange });
     }
 }

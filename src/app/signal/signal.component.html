@@ -15,7 +15,7 @@
             [layout]="histogramOptions.layout"
         ></plotly-plot>
 
-        <div class="n-input-container">
+        <div class="slider-under-plot">
             <mat-form-field>
                 <mat-label>N</mat-label>
                 <input
@@ -32,10 +32,33 @@
                 step="2"
             >
                 <input
+                    type="range"
                     (valueChange)="onNChanged()"
                     [(ngModel)]="fixedN || N"
                     [disabled]="!!fixedN"
                     matSliderThumb
+                >
+            </mat-slider>
+        </div>
+
+        <div class="slider-under-plot" *ngIf="editRangeBounds">
+            <mat-slider
+                discrete
+                [min]="editRangeBounds.from"
+                [max]="editRangeBounds.to"
+                step="1"
+            >
+                <input
+                    type="range"
+                    matSliderStartThumb
+                    [value]="editRange!.from"
+                    (valueChange)="setEditedRange({from:$event})"
+                >
+                <input
+                    type="range"
+                    matSliderEndThumb
+                    [value]="editRange!.to"
+                    (valueChange)="setEditedRange({to:$event})"
                 >
             </mat-slider>
         </div>

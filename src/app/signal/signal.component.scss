@@ -14,11 +14,11 @@
         transition: box-shadow .3s;
     }
 
-    .n-input-container {
+    .slider-under-plot {
         display: flex;
         flex-direction: row;
         gap: 10px;
-        padding: 0 10px 0 20px;
+        padding: 0 20px 0 20px;
 
         mat-form-field {
             width: 100px;

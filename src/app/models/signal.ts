@@ -73,4 +73,8 @@ export abstract class Signal {
     protected copyParameters(signal: Signal): void {
         Object.entries(signal._parameters).forEach(([name, p]) => this._parameters[name].value = p.value);
     }
+
+    protected copyCache(signal: Signal): void {
+        this.cache = signal.cache;
+    }
 }

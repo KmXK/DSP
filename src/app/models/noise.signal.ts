@@ -25,6 +25,7 @@ export class NoiseSignal extends Signal {
     override clone(): Signal {
         const signal = new NoiseSignal();
         signal.copyParameters(this);
+        signal.copyCache(this);
         return signal;
     }
 }
