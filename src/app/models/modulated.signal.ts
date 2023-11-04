@@ -26,7 +26,7 @@ export class ModulatedSignal extends Signal {
         // @ts-ignore
         this.nativeSignal.getParameterValue = function(name, n, N): number {
             if (name === modulationParameter) {
-                return (mod.cachedFormula(n, N) + 1) * this.parameters[name].value;
+                return mod.cachedFormula(n, N);
             }
 
             return this.parameters[name].value;
