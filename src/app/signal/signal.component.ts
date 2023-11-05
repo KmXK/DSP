@@ -61,7 +61,7 @@ export class SignalComponent implements OnInit, OnChanges {
         this.nChanged.emit(this.N);
 
         this.histogramOptions.layout.xaxis.range = [
-            this.visibleRange?.from ?? this.range?.from ?? 0,
+            (this.visibleRange?.from ?? this.range?.from ?? 0) - 0.2,
             this.visibleRange?.to ?? this.range?.to ?? 3 * this.N];
     }
 
