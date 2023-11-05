@@ -9,32 +9,35 @@
         </div>
     </div>
 
-    <div *ngIf="signal" class="settings">
-        <mat-form-field>
-            <mat-label>Smoothing type</mat-label>
-            <mat-select [value]="algoNumber" (valueChange)="algoChanged($event)">
-                <mat-option *ngFor="let algo of smoothingAlgorithms; let i = index" [value]="i">
-                    {{ algo.name }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+    <div *ngIf="signal" style="text-align: center">
+        <h4>Настройки</h4>
+        <div class="settings">
+            <mat-form-field>
+                <mat-label>Smoothing type</mat-label>
+                <mat-select [value]="algoNumber" (valueChange)="algoChanged($event)">
+                    <mat-option *ngFor="let algo of smoothingAlgorithms; let i = index" [value]="i">
+                        {{ algo.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <ng-container *ngIf="kStep">
-            <h4 style="margin: 0">Размер окна:</h4>
-            <mat-slider
-                discrete
-                [min]="1"
-                [max]="n"
-                [step]="kStep"
-            >
-                <input
-                    [value]="k"
-                    (valueChange)="changeK($event)"
-                    matSliderThumb
-                    type="range"
+            <ng-container *ngIf="kStep">
+                <h4 style="margin: 0">Размер окна:</h4>
+                <mat-slider
+                    discrete
+                    [min]="1"
+                    [max]="n"
+                    [step]="kStep"
                 >
-            </mat-slider>
-        </ng-container>
+                    <input
+                        [value]="k"
+                        (valueChange)="changeK($event)"
+                        matSliderThumb
+                        type="range"
+                    >
+                </mat-slider>
+            </ng-container>
+        </div>
     </div>
 
     <div

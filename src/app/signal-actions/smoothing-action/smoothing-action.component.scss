@@ -12,18 +12,18 @@
     }
 
     .settings {
-        width: 250px;
+        width: 350px;
         height: 326px;
         background: white;
         border-radius: 20px;
         border: #7d7d7d solid 2px;
         padding: 20px;
-        margin-top: 62px;
 
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
+        box-shadow: 0 0 10px rgb(170, 170, 170);
 
         * {
             width: 100%;
