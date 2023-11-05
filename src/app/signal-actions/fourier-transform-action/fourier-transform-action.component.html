@@ -26,10 +26,10 @@
                 [signal]="amplitudeSpectrumSignal"
                 [width]="300"
                 [fixedN]="N / 2"
-                [range]="{from: 0, to: N / 2}"
-                [editRangeBounds]="{from: 0, to: N / 2 - 1}"
+                [range]="{from: 1, to: N / 2}"
+                [editRangeBounds]="{from: 1, to: N / 2 - 1}"
                 [editRange]="filterRange"
-                (editRangeChange)="filterRange = $event; signalChanged(signal)"
+                (editRangeChange)="editRangeChange($event)"
             />
         </div>
     </div>
@@ -51,10 +51,10 @@
                 [signal]="phaseSpectrumSignal"
                 [width]="300"
                 [fixedN]="N / 2"
-                [range]="{from: 0, to: N / 2}"
-                [editRangeBounds]="{from: 0, to: N / 2 - 1}"
+                [range]="{from: 1, to: N / 2}"
+                [editRangeBounds]="{from: 1, to: N / 2 - 1}"
                 [editRange]="filterRange"
-                (editRangeChange)="filterRange = $event; signalChanged(signal)"
+                (editRangeChange)="editRangeChange($event)"
             />
         </div>
     </div>

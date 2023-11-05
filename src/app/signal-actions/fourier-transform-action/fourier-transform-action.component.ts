@@ -22,20 +22,29 @@ export class FourierTransformActionComponent {
 
     signalChanged(signal: Signal) {
         this.signal = signal;
-        this.amplitudeSpectrumSignal = new AmplitudeSpectrumSignal(signal);
-        this.phaseSpectrumSignal = new PhaseSpectrumSignal(signal);
+        this.filterRange = { from: 1, to: this.N / 2 - 1 };
+
+        this.updateSignals();
+    }
+
+    onNChanged(n: number) {
+        this.N = n;
+        this.updateSignals();
+    }
+
+    editRangeChange(range: { from: number; to: number }) {
+        this.filterRange = range;
+        this.updateSignals()
+    }
+
+    updateSignals(): void {
+        this.amplitudeSpectrumSignal = new AmplitudeSpectrumSignal(this.signal!);
+        this.phaseSpectrumSignal = new PhaseSpectrumSignal(this.signal!);
 
         this.recoveredSignal = new RecoveredSignal(
             this.amplitudeSpectrumSignal,
             this.phaseSpectrumSignal,
             this.N,
             this.filterRange);
-
-        this.filterRange = { from: 0, to: this.N / 2 - 1 };
-    }
-
-    onNChanged(n: number) {
-        this.N = n;
-        this.signalChanged(this.signal!);
     }
 }
