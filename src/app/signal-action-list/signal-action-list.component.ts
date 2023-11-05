@@ -18,8 +18,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]
 })
 export class SignalActionListComponent {
-    actionTypes = ['Combination', 'Modulation', 'Fourier'];
-    actions: string[] = ['Fourier'];
+    actionTypes = ['Combination', 'Modulation', 'Fourier', 'Smoothing'];
+    actions: string[] = ['Smoothing'];
     states: string[] = [];
 
     addAction(type: string) {

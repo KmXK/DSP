@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="sum-container">
+        <div style="text-align: center">
+            <h4>Сигнал</h4>
+            <app-signal-drop
+                (nChanged)="changeN($event)"
+                (signalChanged)="signalChanged($event)"
+            />
+        </div>
+    </div>
+
+    <div *ngIf="signal" class="settings">
+        <mat-form-field>
+            <mat-label>Smoothing type</mat-label>
+            <mat-select [value]="algoNumber" (valueChange)="algoChanged($event)">
+                <mat-option *ngFor="let algo of smoothingAlgorithms; let i = index" [value]="i">
+                    {{ algo.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <ng-container *ngIf="showK">
+            <h4 style="margin: 0">Размер окна:</h4>
+            <mat-slider
+                discrete
+                [min]="1"
+                [max]="n"
+                [step]="kStep"
+            >
+                <input
+                    [value]="k"
+                    (valueChange)="changeK($event)"
+                    matSliderThumb
+                    type="range"
+                >
+            </mat-slider>
+        </ng-container>
+    </div>
+
+    <div
+        *ngIf="smoothedSignal"
+        style="text-align: center"
+    >
+        <h4>Сглаженный сигнал</h4>
+        <div
+            cdkDropList
+            class="signal-container"
+        >
+            <app-signal
+                [dragable]="true"
+                [fullscreen]="true"
+                [height]="280"
+                [signal]="smoothedSignal"
+                [width]="300"
+                [fixedN]="n"
+            />
+        </div>
+    </div>
+</div>

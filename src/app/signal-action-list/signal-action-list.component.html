@@ -24,6 +24,9 @@
             <ng-template ngSwitchCase="Fourier">
                 <app-fourier-transform-action/>
             </ng-template>
+            <ng-template ngSwitchCase="Smoothing">
+                <app-smoothing-action/>
+            </ng-template>
             <button
                 (click)="removeItem(i)"
                 color="warn"

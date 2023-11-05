@@ -33,6 +33,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import {
     FourierTransformActionComponent
 } from '@app/signal-actions/fourier-transform-action/fourier-transform-action.component';
+import { SmoothingActionComponent } from '@app/signal-actions/smoothing-action/smoothing-action.component';
+import { MatSelectModule } from '@angular/material/select';
 
 PlotlyModule.plotlyjs = Protly;
 
@@ -46,6 +48,7 @@ PlotlyModule.plotlyjs = Protly;
         CombinationActionComponent,
         ModulationActionComponent,
         FourierTransformActionComponent,
+        SmoothingActionComponent,
         SignalDropComponent
     ],
     imports: [
@@ -68,7 +71,8 @@ PlotlyModule.plotlyjs = Protly;
         CdkDragPlaceholder,
         CdkDragPreview,
         MatRadioModule,
-        MatSliderModule
+        MatSliderModule,
+        MatSelectModule
     ],
     providers: [],
     bootstrap: [AppComponent]
