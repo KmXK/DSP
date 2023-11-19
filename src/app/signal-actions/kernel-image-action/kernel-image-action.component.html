@@ -1,0 +1,47 @@
+<div class="container">
+    <div style="text-align: center">
+        <h4>Исходное изображение</h4>
+        <app-image-picker (imageChanged)="setImage($event)"/>
+    </div>
+
+    <div style="text-align: center" *ngIf="imageData">
+        <h4>Настройки</h4>
+        <div class="item-box">
+            <mat-form-field>
+                <mat-label>Kernel type</mat-label>
+                <mat-select [value]="selectedKernelType" (valueChange)="changeKernelType($event)">
+                    <mat-option *ngFor="let kernelType of kernelTypes; let i = index" [value]="i">
+                        {{ kernelType.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <ng-container *ngIf="selectedKernelType===kernelTypes.length - 1">
+                <app-matrix-editor
+                    [(m)]="kernelTypes[kernelTypes.length-1].m"
+                    [(matrix)]="kernelTypes[kernelTypes.length-1].matrix"
+                    (dataChanged)="updateOutputImage()"
+                />
+            </ng-container>
+
+            <ng-container *ngIf="selectedKernelType < kernelTypes.length - 1">
+                <a class="to-custom"
+                   (click)="toCustom()"
+                >
+                    To Custom
+                </a>
+            </ng-container>
+        </div>
+    </div>
+
+    <div style="text-align: center" *ngIf="outputImage">
+        <h4>Полученное изображение</h4>
+        <div class="item-box image-container">
+           <img [src]="outputImage"
+                app-image-modal
+                class="image"
+                alt="Result image"
+           />
+        </div>
+    </div>
+</div>

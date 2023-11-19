@@ -35,6 +35,11 @@ import {
 } from '@app/signal-actions/fourier-transform-action/fourier-transform-action.component';
 import { SmoothingActionComponent } from '@app/signal-actions/smoothing-action/smoothing-action.component';
 import { MatSelectModule } from '@angular/material/select';
+import { ImagePickerComponent } from '@app/image-picker/image-picker.component';
+import { KernelImageActionComponent } from '@app/signal-actions/kernel-image-action/kernel-image-action.component';
+import { ImageModalDirective } from '@app/image-modal-directive/image-modal.directive';
+import { ImageModal } from '@app/image-modal/image-modal.component';
+import { MatrixEditorComponent } from './matrix-editor/matrix-editor.component';
 
 PlotlyModule.plotlyjs = Protly;
 
@@ -49,7 +54,12 @@ PlotlyModule.plotlyjs = Protly;
         ModulationActionComponent,
         FourierTransformActionComponent,
         SmoothingActionComponent,
-        SignalDropComponent
+        SignalDropComponent,
+        ImagePickerComponent,
+        KernelImageActionComponent,
+        ImageModal,
+        ImageModalDirective,
+        MatrixEditorComponent
     ],
     imports: [
         BrowserModule,

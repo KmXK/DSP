@@ -1,0 +1,45 @@
+<mat-form-field>
+    <mat-label>M</mat-label>
+    <input type="number"
+           name="m"
+           matInput
+           [ngModel]="m"
+           (ngModelChange)="changeM($event)"
+    >
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Matrix size</mat-label>
+    <input type="number"
+           name="size"
+           [min]="3"
+           [max]="5"
+           [step]="2"
+           matInput
+           [ngModel]="matrixSize"
+           (ngModelChange)="changeSize($event)"
+    >
+</mat-form-field>
+
+<div class="matrix-container">
+    <div *ngFor="let row of matrix; let i = index" class="row">
+        <ng-container *ngFor="let element of row; let j = index">
+            <mat-form-field>
+                <input matInput
+                       [ngModel]="matrix[i][j]"
+                       (ngModelChange)="isDirty=true"
+                       (change)="elementChanged(i, j, $event)"
+                />
+            </mat-form-field>
+        </ng-container>
+    </div>
+</div>
+
+<a class="submit"
+   [style.visibility]="isDirty ? 'visible' : 'hidden'"
+   (click)="submit()"
+>
+    Submit
+</a>
+
+

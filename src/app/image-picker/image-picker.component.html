@@ -1,0 +1,21 @@
+<div
+    class="container"
+>
+    <div #imageContainer
+         class="image-container"
+         (click)="handleImageClick($event)">
+        <span *ngIf="!selectedImageSrc"
+              class="plus-icon"
+        >
+            +
+        </span>
+        <img #imageElement
+             *ngIf="selectedImageSrc"
+             [src]="selectedImageSrc"
+             class="image"
+             alt="Selected Image"
+        >
+    </div>
+
+    <input type="file" #imageInput accept="image/*" style="display: none;" (change)="handleImageUpload($event)">
+</div>

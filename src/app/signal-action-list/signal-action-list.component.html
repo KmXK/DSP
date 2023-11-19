@@ -26,6 +26,9 @@
             <ng-template ngSwitchCase="Smoothing">
                 <app-smoothing-action/>
             </ng-template>
+            <ng-template ngSwitchCase="Kernel">
+                <app-kernel-image-action/>
+            </ng-template>
             <button
                 (click)="removeItem(i)"
                 color="warn"

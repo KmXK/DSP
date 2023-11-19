@@ -1,0 +1,49 @@
+:host ::ng-deep {
+    .mat-mdc-form-field-subscript-wrapper {
+        max-height: 10px;
+    }
+}
+
+.matrix-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+
+    mat-form-field {
+        ::ng-deep.mat-mdc-form-field-infix {
+            height: 30px;
+            width: 30px;
+            min-height: 0;
+
+            padding: 0;
+        }
+
+
+        font-size: 16px;
+    }
+
+    input {
+        margin: 0;
+        padding: 0;
+    }
+
+    ::ng-deep {
+        .mat-mdc-form-field-subscript-wrapper {
+            max-height: 1px;
+        }
+    }
+}
+
+.submit {
+    margin-top: 5px;
+    cursor: pointer;
+    color: #a920a9;
+    text-decoration: underline;
+}
