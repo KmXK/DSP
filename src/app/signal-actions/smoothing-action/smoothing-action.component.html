@@ -59,4 +59,47 @@
             />
         </div>
     </div>
+
+    <div
+        *ngIf="signal"
+        style="text-align: center"
+    >
+        <h4>Амплитудный спектр</h4>
+        <div
+            cdkDropList
+            class="signal-container"
+        >
+            <app-signal
+                *ngIf="amplitudeSpectrumSignal"
+                [dragable]="false"
+                [fullscreen]="true"
+                [height]="280"
+                [signal]="amplitudeSpectrumSignal"
+                [width]="300"
+                [fixedN]="128 / 2"
+                [range]="{from: 1, to: 128 / 2}"
+            />
+        </div>
+    </div>
+
+    <div
+        *ngIf="coefSpectrumSignal"
+        style="text-align: center"
+    >
+        <h4>Спектр коэффициетов</h4>
+        <div
+            cdkDropList
+            class="signal-container"
+        >
+            <app-signal
+                [dragable]="false"
+                [fullscreen]="true"
+                [height]="280"
+                [signal]="coefSpectrumSignal"
+                [width]="300"
+                [fixedN]="n"
+                [range]="{from: 0, to: n}"
+            />
+        </div>
+    </div>
 </div>
