@@ -41,23 +41,23 @@
             </mat-slider>
         </div>
 
-        <div class="slider-under-plot" *ngIf="editRangeBounds">
+        <div class="slider-under-plot" *ngIf="editRangeBounds && editRange">
             <mat-slider
                 discrete
-                [min]="editRangeBounds.from"
-                [max]="editRangeBounds.to"
+                [min]="editRangeBounds.from ?? range.from"
+                [max]="editRangeBounds.to ?? range.to"
                 step="1"
             >
                 <input
                     type="range"
                     matSliderStartThumb
-                    [value]="editRange!.from"
+                    [value]="editRange.from"
                     (valueChange)="setEditedRange({from:$event})"
                 >
                 <input
                     type="range"
                     matSliderEndThumb
-                    [value]="editRange!.to"
+                    [value]="editRange.to"
                     (valueChange)="setEditedRange({to:$event})"
                 >
             </mat-slider>

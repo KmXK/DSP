@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="sum-container">
+        <div style="text-align: center">
+            <h4>Аудио</h4>
+            <app-audio-picker
+                (audioChanged)="setSignal($event)"
+            />
+        </div>
+    </div>
+
+    <div
+        *ngIf="signal"
+        style="text-align: center"
+    >
+        <h4>Сигнал</h4>
+        <div
+            cdkDropList
+            class="signal-container"
+        >
+            <app-signal
+                *ngIf="signal"
+                [dragable]="true"
+                [fullscreen]="true"
+                [height]="280"
+                [signal]="signal"
+                [width]="300"
+                [mode]="'points'"
+            />
+        </div>
+    </div>
+</div>

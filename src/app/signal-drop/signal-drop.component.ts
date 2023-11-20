@@ -9,10 +9,13 @@ import { Signal } from '@app/models/signal';
 })
 export class SignalDropComponent {
     @Input() canChooseParameters = false;
+    @Input() editRangeBounds?: { from?: number, to?: number };
+    @Input() editRange?: { from: number, to: number };
 
     @Output() parameterChoose = new EventEmitter<string>();
     @Output() signalChanged = new EventEmitter<Signal>();
     @Output() nChanged = new EventEmitter<number>();
+    @Output() editRangeChange = new EventEmitter<{from: number, to: number}>();
 
     signal: Signal | undefined = undefined;
 

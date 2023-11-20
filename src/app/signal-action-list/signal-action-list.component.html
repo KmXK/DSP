@@ -29,6 +29,12 @@
             <ng-template ngSwitchCase="Kernel">
                 <app-kernel-image-action/>
             </ng-template>
+            <ng-template ngSwitchCase="Correlation">
+                <app-correlation-action/>
+            </ng-template>
+            <ng-template ngSwitchCase="Audio Converter">
+                <app-audio-converter-action/>
+            </ng-template>
             <button
                 (click)="removeItem(i)"
                 color="warn"

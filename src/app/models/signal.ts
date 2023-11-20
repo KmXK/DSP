@@ -1,3 +1,5 @@
+import { Range } from '@app/models/range';
+
 export type ParameterChecker = (value: number) => string | null;
 
 export interface SignalParameter {
@@ -14,6 +16,8 @@ export abstract class Signal {
     normalized = false;
 
     private cache: Record<number, Record<number, number>> = {};
+
+    public definedRange?: Range;
 
     getValues(range: { from: number, to: number }, samplingFrequency: number): { x: number, y: number }[] {
         const result: { x: number, y: number }[] = [];

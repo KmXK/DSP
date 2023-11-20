@@ -8,6 +8,7 @@
         (changed)="signalChanged.emit($event)"
         (parameterChoose)="parameterChoose.emit($event)"
         (nChanged)="nChanged.emit($event)"
+        (editRangeChange)="editRangeChange.emit($event)"
         *ngIf="signal"
         [canChooseParameter]="canChooseParameters"
         [dragable]="false"
@@ -15,5 +16,7 @@
         [height]="280"
         [signal]="signal"
         [width]="300"
+        [editRangeBounds]="editRangeBounds"
+        [editRange]="editRange"
     />
 </div>

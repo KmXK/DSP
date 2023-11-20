@@ -1,0 +1,14 @@
+<div
+    class="container"
+>
+    <div #audioContainer
+         class="image-container"
+         (click)="handleAudioClick($event)">
+        <span class="plus-icon"
+        >
+            +
+        </span>
+    </div>
+
+    <input type="file" #audioInput accept="audio/wav" style="display: none;" (change)="handleImageUpload($event)">
+</div>

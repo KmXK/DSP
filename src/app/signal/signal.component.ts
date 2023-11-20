@@ -18,15 +18,18 @@ export class SignalComponent implements OnInit, OnChanges {
     @Input() fullscreen = true;
     @Input() width = 0;
     @Input() height = 0;
-    @Input() fixedN: number | undefined = undefined;
-    @Input() range?: { from: number, to: number } = undefined;
-    @Input() visibleRange?: { from: number, to: number } = undefined;
-    @Input() editRangeBounds?: { from: number, to: number } = undefined;
-    @Input() editRange?: { from: number, to: number } = undefined;
+    @Input() fixedN?: number;
+    @Input('range') _range: { from: number, to: number } = undefined!;
+    @Input() visibleRange?: { from: number, to: number };
+    @Input() editRangeBounds?: { from?: number, to?: number };
+    @Input() editRange?: { from: number, to: number };
+    @Input() mode: 'points' | 'lines' = 'lines';
+
     @Output() changed = new EventEmitter<Signal>();
     @Output() parameterChoose = new EventEmitter<string>();
     @Output() nChanged = new EventEmitter<number>();
     @Output() editRangeChange = new EventEmitter<{from: number, to: number}>();
+
     N: number = 128;
     hasParameters = false;
     histogramOptions: any = {
@@ -61,25 +64,24 @@ export class SignalComponent implements OnInit, OnChanges {
         this.nChanged.emit(this.N);
 
         this.histogramOptions.layout.xaxis.range = [
-            (this.visibleRange?.from ?? this.range?.from ?? 0) - 0.2,
-            this.visibleRange?.to ?? this.range?.to ?? 3 * this.N];
+            (this.visibleRange?.from ?? this.range.from) - 0.2,
+            this.visibleRange?.to ?? this.range.to];
+
     }
 
     calculatePoints(): void {
-        new Promise<{ x: number, y: number }[]>(resolve => {
-            Object.entries(this.formGroup.controls).forEach(([key, control]) => {
-                if (this.signal.parameters[key]) {
-                    this.signal.setParameter(key, control.value);
-                }
-            })
-
-            resolve(this.signal.getValues(this.range || { from: 0, to: this.N * 3 }, this.N));
-        }).then(points => {
-            this.histogramOptions.data[0].x = points.map(x => x.x);
-            this.histogramOptions.data[0].y = points.map(x => x.y);
-
-            this.changed.emit(this.signal);
+        Object.entries(this.formGroup.controls).forEach(([key, control]) => {
+            if (this.signal.parameters[key]) {
+                this.signal.setParameter(key, control.value);
+            }
         });
+
+        const points = this.signal.getValues(this.range, this.N);
+
+        this.histogramOptions.data[0].x = points.map(x => x.x);
+        this.histogramOptions.data[0].y = points.map(x => x.y);
+
+        this.changed.emit(this.signal);
     }
 
     getErrorMessage(controlKey: string): string | null {
@@ -111,7 +113,7 @@ export class SignalComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes['signal'] && changes['signal']) {
+        if (changes['signal']) {
             const controls: Record<string, FormControl> = {};
 
             if (Object.entries(this.signal.parameters).length) {
@@ -135,6 +137,23 @@ export class SignalComponent implements OnInit, OnChanges {
 
             this.calculatePoints();
         }
+
+        if (changes['range']) {
+            this.histogramOptions.layout.xaxis.range = [
+                (this.visibleRange?.from ?? this.range.from) - 0.2,
+                this.visibleRange?.to ?? this.range.to];
+
+            this.calculatePoints();
+        }
+
+        if (changes['editRangeBounds']) {
+            if (!this.editRange && this.editRangeBounds) {
+                this.editRange = {
+                    from: this.editRangeBounds.from ?? this.range.from,
+                    to: this.editRangeBounds.to ?? this.range.to
+                };
+            }
+        }
     }
 
     onNChanged() {
@@ -147,12 +166,20 @@ export class SignalComponent implements OnInit, OnChanges {
     }
 
     setEditedRange(range: { from?: number, to?: number }) {
+        let editRange;
+
         if (range.from !== undefined) {
-            this.editRange = { ...this.editRange!, from: range.from };
+            editRange = { ...this.editRange!, from: range.from };
         } else if (range.to !== undefined) {
-            this.editRange = { ...this.editRange!, to: range.to };
+            editRange = { ...this.editRange!, to: range.to };
         }
 
-        this.editRangeChange.emit(this.editRange);
+        if (editRange) {
+            this.editRangeChange.emit(editRange);
+        }
+    }
+
+    get range(): {from: number, to: number} {
+        return this._range || this.signal.definedRange || { from: 0, to: 3 * this.N };
     }
 }

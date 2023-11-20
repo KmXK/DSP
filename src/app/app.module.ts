@@ -40,6 +40,9 @@ import { KernelImageActionComponent } from '@app/signal-actions/kernel-image-act
 import { ImageModalDirective } from '@app/image-modal-directive/image-modal.directive';
 import { ImageModal } from '@app/image-modal/image-modal.component';
 import { MatrixEditorComponent } from './matrix-editor/matrix-editor.component';
+import { CorrelationActionComponent } from '@app/signal-actions/correlation-action/correlation-action.component';
+import { AudioPickerComponent } from '@app/audio-picker/audio-picker.component';
+import { AudioConverterActionComponent } from '@app/signal-actions/audio-converter-action/audio-converter-action.component';
 
 PlotlyModule.plotlyjs = Protly;
 
@@ -59,7 +62,10 @@ PlotlyModule.plotlyjs = Protly;
         KernelImageActionComponent,
         ImageModal,
         ImageModalDirective,
-        MatrixEditorComponent
+        MatrixEditorComponent,
+        CorrelationActionComponent,
+        AudioPickerComponent,
+        AudioConverterActionComponent
     ],
     imports: [
         BrowserModule,
