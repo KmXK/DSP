@@ -43,7 +43,6 @@ export class ImagePickerComponent {
             };
 
             reader.readAsDataURL(input.files[0]);
-
         }
     }
 
@@ -57,8 +56,6 @@ export class ImagePickerComponent {
 
         canvas.width = imageElement.naturalWidth;
         canvas.height = imageElement.naturalHeight;
-
-        console.log(imageElement);
 
         context.drawImage(imageElement, 0, 0);
 
