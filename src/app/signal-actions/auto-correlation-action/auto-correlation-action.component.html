@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="sum-container">
+        <div style="text-align: center">
+            <h4>Исходный сигнал</h4>
+            <app-signal-drop
+                (signalChanged)="signalChanged($event)"
+                [editRangeBounds]="{from: 0}"
+                [editRange]="range"
+                (editRangeChange)="rangeChanged($event)"
+            />
+        </div>
+    </div>
+
+    <div
+        *ngIf="signal"
+        style="text-align: center"
+    >
+        <h4>Итоговый сигнал</h4>
+        <div
+            cdkDropList
+            class="signal-container"
+        >
+            <app-signal
+                *ngIf="signal"
+                [dragable]="true"
+                [fullscreen]="true"
+                [height]="280"
+                [signal]="signal"
+                [width]="300"
+                [range]="{from: -100, to: 100}"
+            />
+        </div>
+    </div>
+</div>

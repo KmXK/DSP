@@ -22,7 +22,7 @@ export class CorrelationSignal extends Signal {
 
     formula(n: number, N: number): number {
         const dl = this.range1.length - this.range2.length;
-        if (n < 0 || n > dl) return 0;
+        if (n > dl) return 0;
 
         let nominator = 0;
         for (let i = 0; i < this.range2.length; i++) {
@@ -41,12 +41,12 @@ export class CorrelationSignal extends Signal {
 
         const denominator = Math.sqrt(
             sum(this.signal1, this.range1.from + n, this.range2.length) *
-            sum(this.signal2, 0, this.range2.length));
+            sum(this.signal2, this.range2.from, this.range2.length));
 
         return nominator / denominator;
     }
 
     override clone(): Signal {
-        return new CorrelationSignal(this.signal1, this.range1, this.signal2, this.range2);
+        return new CorrelationSignal(this.signal1.clone(), this.range1, this.signal2.clone(), this.range2);
     }
 }

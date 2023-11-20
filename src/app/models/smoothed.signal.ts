@@ -11,6 +11,8 @@ export class SmoothedSignal extends Signal {
         private readonly func: SmoothFunction
     ) {
         super();
+
+        this.definedRange = this.signal.definedRange;
     }
 
     formula(n: number, N: number): number {

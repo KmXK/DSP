@@ -43,6 +43,9 @@ import { MatrixEditorComponent } from './matrix-editor/matrix-editor.component';
 import { CorrelationActionComponent } from '@app/signal-actions/correlation-action/correlation-action.component';
 import { AudioPickerComponent } from '@app/audio-picker/audio-picker.component';
 import { AudioConverterActionComponent } from '@app/signal-actions/audio-converter-action/audio-converter-action.component';
+import {
+    AutoCorrelationActionComponent
+} from '@app/signal-actions/auto-correlation-action/auto-correlation-action.component';
 
 PlotlyModule.plotlyjs = Protly;
 
@@ -65,7 +68,8 @@ PlotlyModule.plotlyjs = Protly;
         MatrixEditorComponent,
         CorrelationActionComponent,
         AudioPickerComponent,
-        AudioConverterActionComponent
+        AudioConverterActionComponent,
+        AutoCorrelationActionComponent
     ],
     imports: [
         BrowserModule,
