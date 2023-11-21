@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    .item-box {
+        width: 350px;
+        min-height: 322px;
+        background: white;
+        border-radius: 20px;
+        border: #7d7d7d solid 2px;
+        padding: 20px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 0 10px rgb(170, 170, 170);
+
+        &.image-container {
+            padding: 0;
+            width: 552px;
+            height: 360px;
+        }
+
+        ::ng-deep.mat-mdc-form-field-subscript-wrapper {
+            height: 10px;
+        }
+
+        * {
+            width: 100%;
+        }
+
+        .image {
+            object-fit: contain;
+            overflow-y: clip;
+            min-height: 100%;
+            max-height: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            height: 0; // triggers browser to use min/max heights
+            width: 0;
+        }
+    }
+}
+
+.signal-container {
+    width: 550px;
+    background: white;
+    border-radius: 20px;
+    border: #7d7d7d solid 2px;
+}

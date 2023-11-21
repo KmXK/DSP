@@ -46,6 +46,9 @@ import { AudioConverterActionComponent } from '@app/signal-actions/audio-convert
 import {
     AutoCorrelationActionComponent
 } from '@app/signal-actions/auto-correlation-action/auto-correlation-action.component';
+import {
+    ImageCorrelationActionComponent
+} from '@app/signal-actions/image-correlation-action/image-correlation-action.component';
 
 PlotlyModule.plotlyjs = Protly;
 
@@ -69,7 +72,8 @@ PlotlyModule.plotlyjs = Protly;
         CorrelationActionComponent,
         AudioPickerComponent,
         AudioConverterActionComponent,
-        AutoCorrelationActionComponent
+        AutoCorrelationActionComponent,
+        ImageCorrelationActionComponent
     ],
     imports: [
         BrowserModule,

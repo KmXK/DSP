@@ -1,0 +1,28 @@
+<div class="container">
+    <div style="text-align: center">
+        <h4>Исходное изображение</h4>
+        <app-image-picker (imageChanged)="setImage($event, 0)"/>
+    </div>
+
+    <div style="text-align: center">
+        <h4>Искомое изображение</h4>
+        <app-image-picker (imageChanged)="setImage($event, 1)"/>
+    </div>
+
+    <div style="text-align: center" *ngIf="outputImage || 1">
+        <h4>Результаты корреляции</h4>
+        <div class="item-box image-container">
+<!--           <img [src]="outputImage"-->
+<!--                app-image-modal-->
+<!--                class="image"-->
+<!--                alt="Result image"-->
+<!--           />-->
+
+            <plotly-plot
+                [config]="histogramOptions.config"
+                [data]="histogramOptions.data"
+                [layout]="histogramOptions.layout"
+            ></plotly-plot>
+        </div>
+    </div>
+</div>
