@@ -18,18 +18,45 @@
         display: flex;
         flex-direction: row;
         gap: 10px;
-        padding: 0 20px 0 20px;
+        margin: 0 20px;
 
         mat-form-field {
             width: 100px;
+
+            input {
+                width: 100px;
+            }
 
             ::ng-deep .mat-mdc-form-field-subscript-wrapper {
                 display: none;
             }
         }
 
+        &.slider-range {
+            flex-direction: column;
+
+            mat-slider {
+                width: 95%;
+            }
+
+            input[type=number] {
+                ::-webkit-outer-spin-button,
+                ::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                    -moz-appearance: textfield;
+                }
+            }
+        }
+
         mat-slider {
             width: 100%;
+        }
+
+        .slider-inputs {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
         }
     }
 }

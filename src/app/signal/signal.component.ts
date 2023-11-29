@@ -182,4 +182,8 @@ export class SignalComponent implements OnInit, OnChanges {
     get range(): {from: number, to: number} {
         return this._range || this.signal.definedRange || { from: 0, to: 3 * this.N };
     }
+
+    getValueFromInput(event: Event): number {
+        return +(<any>event.target).value;
+    }
 }

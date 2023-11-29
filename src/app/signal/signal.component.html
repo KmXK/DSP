@@ -41,7 +41,7 @@
             </mat-slider>
         </div>
 
-        <div class="slider-under-plot" *ngIf="editRangeBounds && editRange">
+        <div class="slider-under-plot slider-range" *ngIf="editRangeBounds && editRange">
             <mat-slider
                 discrete
                 [min]="editRangeBounds.from ?? range.from"
@@ -61,6 +61,26 @@
                     (valueChange)="setEditedRange({to:$event})"
                 >
             </mat-slider>
+            <div class="slider-inputs">
+                <mat-form-field>
+                    <mat-label>From</mat-label>
+                    <input
+                        type="number"
+                        matInput
+                        [ngModel]="editRange.from"
+                        (change)="setEditedRange({from: getValueFromInput($event)})"
+                    />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>To</mat-label>
+                    <input
+                        type="number"
+                        matInput
+                        [ngModel]="editRange.to"
+                        (change)="setEditedRange({to: getValueFromInput($event)})"
+                    />
+                </mat-form-field>
+            </div>
         </div>
     </div>
 
