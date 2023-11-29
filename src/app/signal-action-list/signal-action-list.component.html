@@ -6,10 +6,10 @@
 
 <div class="actions-container">
     <ng-container
-        *ngFor="let actionType of actions; let i = index"
-        [ngSwitch]="actionType"
+        *ngFor="let actionType of actions; let i = index; trackBy: actionTypeTrackFunction"
+        [ngSwitch]="actionType[0]"
     >
-        <h3 class="center">{{actionType}}</h3>
+        <h3 class="center">{{actionType[0]}}</h3>
         <div
             [@removing]="states[i]"
             class="item-container"

@@ -19,11 +19,13 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class SignalActionListComponent {
     actionTypes = ['Combination', 'Modulation', 'Fourier', 'Smoothing', 'Kernel', 'Correlation', 'Auto Correlation', 'Audio Converter', 'Image Correlation'];
-    actions: string[] = ['Correlation'];
+    actions: [string, number][] = [['Correlation', 0]];
     states: string[] = [];
 
+    private nextActionId = 1;
+
     addAction(type: string) {
-        this.actions = [type, ...this.actions];
+        this.actions = [[type, this.nextActionId++], ...this.actions];
         this.states = ['', ...this.states];
     }
 
@@ -34,5 +36,9 @@ export class SignalActionListComponent {
             this.actions = this.actions.filter((_, i) => i !== index);
             this.states = this.states.filter((_, i) => i !== index);
         }, 500);
+    }
+
+    actionTypeTrackFunction(index: number, item: [string, number]) {
+        return item[1];
     }
 }
