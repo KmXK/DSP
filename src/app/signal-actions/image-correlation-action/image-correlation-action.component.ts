@@ -17,12 +17,20 @@ export class ImageCorrelationActionComponent {
             }
         ],
         layout: {
+            width: 550,
+            height: 330,
             autosize: true,
             xaxis: {
                 autorange: true
             },
             yaxis: {
                 autorange: true
+            },
+            margin: {
+                l: 30,
+                r: 30,
+                b: 30,
+                t: 30
             }
         }
     };
@@ -40,7 +48,6 @@ export class ImageCorrelationActionComponent {
         if (!this.imageData || !this.searchImageData) return;
 
         const newImage = this.processImage();
-        console.log(newImage);
         this.histogramOptions.data[0].z = newImage;
         //this.outputImage = this.generateBase64(newImage);
     }
@@ -74,15 +81,9 @@ export class ImageCorrelationActionComponent {
                     sum = cache[j][i][y];
                 } else {
                     for (let x = 0; x < w; x++) {
-                        try {
-                            sum.r += area[y][x].r;
-                            sum.g += area[y][x].g;
-                            sum.b += area[y][x].b;
-                        }
-                        catch{
-                            console.log(x, y);
-                            throw {};
-                        }
+                        sum.r += area[y][x].r;
+                        sum.g += area[y][x].g;
+                        sum.b += area[y][x].b;
                     }
                     cache[j][i][y] = sum;
                 }
@@ -120,7 +121,6 @@ export class ImageCorrelationActionComponent {
         const medium2 = medium(this.searchImageData, 0, 0, w, h);
 
         for (let u = 0; u < this.imageData.length - this.searchImageData.length; u++) {
-            console.log(`${u}/${ this.imageData.length - this.searchImageData.length}`);
             for (let v = 0; v < this.imageData[0].length - this.searchImageData[0].length; v++) {
                 const medium1 = medium(this.imageData, v, u, w, h);
                 let nominator = 0, d1 = 0, d2 = 0;

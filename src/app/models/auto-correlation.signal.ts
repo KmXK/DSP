@@ -1,6 +1,7 @@
 import { Signal, SignalParameters } from '@app/models/signal';
 import { Range } from '@app/models/range';
 import { CorrelationSignal } from '@app/models/correlation.signal';
+import { CutSignal } from '@app/models/cut.signal';
 
 export class AutoCorrelationSignal extends Signal {
     override readonly _parameters: SignalParameters = {
@@ -21,7 +22,7 @@ export class AutoCorrelationSignal extends Signal {
         this.definedRange = new Range(-100, 100);
 
         this.correlationSignal = new CorrelationSignal(
-            this.signal1,
+            new CutSignal(this.signal1, this.range1),
             new Range(this.range1.from - 100, this.range1.to + 100),
             this.signal1,
             this.range1);
